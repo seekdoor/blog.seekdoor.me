@@ -1,0 +1,21 @@
+#content-offline {
+  text-align: center;
+  transform: translateY(30vh);
+
+  .offline-title {
+    font-size: 3.6rem;
+  }
+
+  .offline-subtitle {
+    margin: 0.4rem 0;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 100%;
+    color: #57606a;
+  }
+
+  .error-text {
+    font-size: 1.2rem;
+  }
+}

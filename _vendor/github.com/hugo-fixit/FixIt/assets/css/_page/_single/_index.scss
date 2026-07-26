@@ -1,0 +1,551 @@
+@import 'toc';
+@import 'fixit-decryptor';
+@import 'collections';
+@import 'related';
+@import 'color-preview';
+
+.single {
+  .single-title {
+    padding: 1rem 0 0.5rem;
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 140%;
+
+    .icon-pin {
+      display: inline-block;
+      width: max-content;
+      transform: rotate(30deg);
+      margin-right: 0.25em;
+      color: fixit-var(danger);
+    }
+
+    .icon-repost {
+      display: inline-block;
+      width: max-content;
+      margin-right: 0.25em;
+      color: fixit-var(success);
+    }
+
+    @include media('print') {
+      text-align: center;
+    }
+  }
+
+  .single-subtitle {
+    margin-block: 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+    line-height: 1.15;
+
+    @include media('print') {
+      text-align: center;
+    }
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: fixit-var(secondary);
+
+    span {
+      display: inline-block;
+    }
+
+    @include link(false, true);
+
+    .author {
+      font-size: 1.05rem;
+
+      img.avatar {
+        width: 1.3rem;
+        height: 1.3rem;
+        vertical-align: text-bottom;
+        border: 0.25px solid fixit-var(global-border-color);
+        box-sizing: border-box;
+        object-position: center;
+        @include border-radius(full);
+        object-fit: cover;
+      }
+    }
+
+    @include media('print') {
+      text-align: center;
+
+      .comment-visitors,
+      .comment-count {
+        display: none;
+      }
+    }
+  }
+
+  .featured-image {
+    margin: 1rem 0;
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+  }
+
+  #content[data-end-flag]:not([data-password])::after {
+    content: attr(data-end-flag);
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    padding: 5px;
+    color: fixit-var(global-placeholder-color);
+  }
+
+  hr {
+    position: relative;
+    height: 1em;
+    margin-block: 1em;
+    background-image: linear-gradient(to right, fixit-var(global-border-color) 50%, transparent 50%);
+    background-size: 10px 2px;
+    background-position: center;
+    background-repeat: repeat-x;
+    border: none;
+
+    &.awesome-hr {
+      &::before {
+        display: inline-block;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        @include z-index(base);
+        color: fixit-var(hr-active-color);
+        font-size: 20px;
+        line-height: 1;
+        transition: left 1s ease-in-out, color 0.3s ease, border-color 0.3s ease;
+        font-family: var(--fa-family-classic);
+        font-weight: 600;
+        content: '\f0c4';
+      }
+    
+      &:hover::before {
+        left: calc(95% - 20px);
+      }
+    }
+  }
+
+  .content {
+    margin-block: 1rem;
+
+    > h1,
+    > h2 {
+      font-size: 1.5em;
+      padding-bottom: 0.3em;
+      border-bottom: 1px solid fixit-var(global-border-color-light);
+    }
+
+    > h3 {
+      font-size: 1.25em;
+    }
+
+    > h4 {
+      font-size: 1em;
+    }
+
+    > h5 {
+      font-size: 0.875em;
+    }
+
+    > h6 {
+      font-size: 0.85em;
+    }
+
+    .heading-element {
+      display: flex;
+      font-weight: bold;
+      line-height: 1.25;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+
+      [data-theme=dark] & {
+        font-weight: bolder;
+      }
+
+      &:hover,
+      &:target {
+        > .heading-mark {
+          opacity: 1;
+        }
+      }
+
+      > .heading-mark {
+        display: inline-flex;
+        align-items: center;
+        opacity: 0;
+        padding-inline: 0.5rem;
+        transition: all 0.2s ease-in-out;
+        @include link(false, false);
+
+        svg {
+          fill: currentColor;
+        }
+      }
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+
+    b,
+    strong {
+      font-weight: bold;
+
+      [data-theme=dark] & {
+        color: #ddd;
+      }
+    }
+
+    @include link(false, false);
+
+    a {
+      white-space: normal;
+      @include overflow-wrap(break-word);
+
+      b,
+      strong {
+        [data-theme=dark] & {
+          color: inherit;
+        }
+      }
+    }
+
+    > ul,
+    > ol,
+    > dl {
+      margin-block: 0.5em;
+    }
+
+    ol ol,
+    ol ul,
+    ul ol,
+    ul ul {
+      padding-left: 20px;
+    }
+
+    li::marker {
+      color: fixit-var(secondary);
+    }
+    li:hover::marker {
+      color: fixit-var(single-link-hover-color);
+    }
+
+    // Task lists
+    li[data-task] {
+      list-style: none;
+      color: fixit-var(task-color);
+
+      .checkbox-icon {
+        margin: 0 .25em 0 -1.5em;
+        color: fixit-var(checkbox-color);
+      }
+    }
+    li[data-task='x'] {
+      @include set-fixit-var(checkbox-color, fixit-var(secondary));
+
+      .checkbox-icon {
+        opacity: 0.6;
+      }
+    }
+    li[data-task='-'] {
+      opacity: 0.6;
+      text-decoration: line-through rgba(145, 145, 145, 0.6);
+      @include set-fixit-var(task-color, fixit-var(secondary));
+    }
+    li[data-task='/'] {
+      @include set-fixit-var(task-color, fixit-var(success));
+    }
+    li[data-task='!'] {
+      @include set-fixit-var(checkbox-color, fixit-var(danger));
+    }
+    li[data-task='?'] {
+      @include set-fixit-var(checkbox-color, fixit-var(warning));
+    }
+
+    dl {
+      dt {
+        font-weight: bold;
+      }
+      dd {
+        margin: 0.25em 0 1em;
+      }
+    }
+
+    ruby {
+      background-color: fixit-var(code-block-background-color);
+
+      rt {
+        color: fixit-var(secondary);
+      }
+    }
+
+    mark {
+      padding: 0.14em 0.28em;
+      background-color: fixit-var(mark-background-color, mark);
+      color: fixit-var(mark-color, marktext);
+      @include border-radius;
+
+      @each $color, $value in $theme-colors {
+        &.mark-#{$color} {
+          @include set-fixit-vars((
+            mark-color: #fff,
+            mark-background-color: fixit-var(#{$color}),
+          ));
+        }
+      }
+    }
+
+    .table-wrapper {
+      position: relative;
+      overflow-x: auto;
+      @include set-fixit-var(scrollbar-thumb-color, fixit-var(table-background-color));
+
+      > table {
+        width: 100%;
+        max-width: 100%;
+        margin: 0.625rem 0;
+        border-spacing: 0;
+        background: fixit-var(table-background-color);
+        border-collapse: collapse;
+
+        thead {
+          background: fixit-var(table-thead-color);
+        }
+
+        &:not([class]) tbody {
+          & tr:nth-child(odd) {
+            background: darken($table-background-color, 2.25%);
+
+            [data-theme=dark] & {
+              background-color: lighten($table-background-color-dark, 2.75%);
+            }
+          }
+
+          & tr:hover {
+            background: darken($table-background-color, 4.5%);
+
+            [data-theme=dark] & {
+              background-color: lighten($table-background-color-dark, 5.5%);
+            }
+          }
+        }
+
+        th,
+        td {
+          padding: 0.3rem 1rem;
+          border: 1px solid darken($table-thead-color, 2%);
+
+          [data-theme=dark] & {
+            border-color: darken($table-thead-color-dark, 2%);
+          }
+        }
+      }
+    }
+
+    img {
+      max-width: 100%;
+      // SVG performs differently in Safari compared to other browsers
+      &:not([src*='.svg']) {
+        min-height: 1em;
+      }
+    }
+    svg {
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 0.5rem;
+      text-align: center;
+
+      .image-caption:not(:empty) {
+        min-width: 20%;
+        max-width: 80%;
+        display: inline-block;
+        padding: 0.5rem;
+        margin: 0 auto;
+        font-size: 0.875rem;
+        color: #969696;
+      }
+
+      img {
+        display: block;
+        margin: 0 auto;
+        height: auto;
+        overflow: hidden;
+      }
+    }
+
+    blockquote {
+      display: block;
+      border-left: 0.25em solid fixit-var(global-border-color);
+      color: fixit-var(blockquote-color);
+      padding: 0 1em;
+      margin: 1rem 0;
+
+      ul,
+      ol {
+        padding-left: 1.5em;
+      }
+
+      dl dd {
+        margin-inline-start: 0.25em;
+      }
+
+      @include link(false, true);
+    }
+
+    sup[id^='fnref']:has(.footnote-ref) {
+      padding: 2px 4px;
+      background-color: rgba(238, 238, 238, 0.7);
+      color: #555555;
+      cursor: pointer;
+      @include border-radius(0.25rem);
+
+      [data-theme=dark] & {
+        background-color: rgba(56, 139, 253, 0.1);
+        color: #58a6ff;
+      }
+
+      @include link(true, false);
+    }
+
+    .footnotes {
+      font-size: 0.75rem;
+      white-space: normal;
+      color: #a3a3ae;
+      @include link(false, true);
+
+      [data-theme=dark] & {
+        color: #9d9d9f;
+      }
+
+      ol {
+        margin-block: 1em;
+        padding-left: 1rem;
+      }
+      
+      hr {
+        background-color: fixit-var(global-border-color);
+        height: 1px;
+        margin-block: 1em;
+      }
+
+      code {
+        font-size: 0.75rem;
+      }
+
+      a:not(.footnote-backref) {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      p {
+        margin: 0.25rem 0;
+      }
+    }
+
+    kbd {
+      display: inline-block;
+      padding: 0 0.25rem;
+      background-color: fixit-var(global-background-color);
+      border: 1px solid fixit-var(global-border-color);
+      font-size: 0.8rem;
+      font-family: fixit-var(code-font-family);
+      color: fixit-var(code-color);
+      box-shadow: inset 0 -1px 0 fixit-var(global-border-color);
+      @include border-radius;
+    }
+
+    // KaTeX styles
+    .katex-display {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      // neutralize the margin-right setting of .katex .vlist-t2
+      // to prevent scrollbars from appearing when the width is not full
+      padding-right: 2px;
+    }
+    .katex-error {
+      padding: 0.14em 0.28em;
+      background-color: mark;
+      cursor: help;
+      @include border-radius;
+    }
+
+    // MathJax styles
+    mjx-container[jax='CHTML'] {
+      // formula Blocks
+      &[display='true'] {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      // fix the color of xypic diagrams
+      mjx-xypic {
+        g {
+          stroke: currentColor !important;
+        }
+        mjx-xypic-object {
+          color: currentColor !important;
+          fill: currentColor !important;
+        }
+      }
+    }
+
+    json-viewer[boxed] + json-viewer[boxed] {
+      margin-top: 0.5rem;
+    }
+
+    @include media('lg', 'up') {
+      :is(.code-block, .diagram-container) {
+        :is(.code-copy-btn, .diagram-copy-btn) {
+          display: none;
+          opacity: 0;
+          transform: scale(0.9);
+          transition:
+            display 0.25s allow-discrete,
+            opacity 0.25s,
+            transform 0.25s,
+            color 0.1s,
+            background-color 0.1s,
+            box-shadow 0.1s,
+            border-color 0.1s;
+        }
+        &:hover {
+          :is(.code-copy-btn, .diagram-copy-btn) {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+            @starting-style {
+              opacity: 0;
+              transform: scale(0.9);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @import '_shortcodes';
+  @import 'alert';
+  @import 'code';
+  @import 'diagram-copy-btn';
+  @import 'reward';
+  @import 'footer';
+  @import 'comment';
+}
+
+.lg-toolbar .lg-icon::after {
+  color: #999;
+}
