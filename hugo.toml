@@ -49,6 +49,7 @@ mainSections = ["posts"]
 
 [params]
   description = "喜欢的话就坚持吧"
+  keywords = ["袅残烟", "pcwuyu", "pcwuyu.com", "blog", "seekdoor"]
   defaultTheme = "auto"
   dateFormat = "2006-01-02"
   [params.author]
