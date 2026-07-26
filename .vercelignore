@@ -1,0 +1,18 @@
+# Local Typecho backups and SQLite sidecars are never deployment inputs.
+/blog_*.db
+/blog_*.db-*
+/blog_data_*/
+
+# Hugo build artifacts and local tool state are recreated by Vercel.
+/public/
+/resources/
+/.git/
+/.vercel/
+
+# The root Hugo deployment does not need the separate Waline application.
+/waline/
+
+# Private or local-only migration artifacts.
+/reports/waline-comments.private.json
+/reports/screenshots/
+/scripts/__pycache__/
