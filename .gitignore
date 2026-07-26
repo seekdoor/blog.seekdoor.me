@@ -1,5 +1,6 @@
 # Private Typecho source backups. Generated public content is committed instead.
 /blog_*.db
+/blog_*.db-*
 /blog_data_*/
 
 # Hugo build output and module caches.
