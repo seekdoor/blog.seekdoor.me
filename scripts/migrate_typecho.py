@@ -30,6 +30,12 @@ ASSET_PATTERN = re.compile(
     r"(?:https?://blog\.seekdoor\.me)?(?P<path>/usr/uploads/[^\s\"'<>\\)]+)",
     flags=re.IGNORECASE,
 )
+MALFORMED_EXTERNAL_IMAGE_PATTERN = re.compile(
+    r"!\[(?P<alt>[^\]]*)\]\(\.\./[^)\r\n]*\)[^\]\r\n]*\]\((?P<url>https?://[^\s)]+)\)",
+    flags=re.IGNORECASE,
+)
+RELATIVE_IMAGE_SCHEME_PATTERN = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|//|/|#)", flags=re.IGNORECASE)
+LEGACY_IMAGE_FALLBACK = "/usr/uploads/migration/legacy-media-unavailable.jpg"
 CHINA_STANDARD_TIME = timezone(timedelta(hours=8))
 
 MANAGED_DIRECTORIES = (
@@ -147,10 +153,75 @@ def extract_asset_paths(text: str) -> set[str]:
     return paths
 
 
-def sanitize_body(text: str) -> tuple[str, int]:
+def markdown_destination_end(text: str, start: int) -> int | None:
+    depth = 1
+    escaped = False
+    for index in range(start, len(text)):
+        character = text[index]
+        if escaped:
+            escaped = False
+            continue
+        if character == "\\":
+            escaped = True
+        elif character == "(":
+            depth += 1
+        elif character == ")":
+            depth -= 1
+            if depth == 0:
+                return index
+    return None
+
+
+def replace_legacy_relative_images(text: str) -> tuple[str, set[str], int]:
+    def repair_malformed_external_image(match: re.Match[str]) -> str:
+        return f"![{match.group('alt')}]({match.group('url')})"
+
+    body, repaired_external_images = MALFORMED_EXTERNAL_IMAGE_PATTERN.subn(
+        repair_malformed_external_image,
+        text,
+    )
+    replacements: list[str] = []
+    legacy_sources: set[str] = set()
+    copy_start = 0
+    search_start = 0
+
+    while True:
+        image_start = body.find("![", search_start)
+        if image_start < 0:
+            break
+        destination_start = body.find("](", image_start + 2)
+        if destination_start < 0:
+            search_start = image_start + 2
+            continue
+        destination_start += 2
+        destination_end = markdown_destination_end(body, destination_start)
+        if destination_end is None:
+            search_start = destination_start
+            continue
+
+        destination = body[destination_start:destination_end].strip()
+        source = destination.split(maxsplit=1)[0].strip("<>") if destination else ""
+        if not source or RELATIVE_IMAGE_SCHEME_PATTERN.match(source):
+            search_start = destination_end + 1
+            continue
+
+        replacements.append(body[copy_start:destination_start])
+        replacements.append(LEGACY_IMAGE_FALLBACK)
+        legacy_sources.add(source)
+        copy_start = destination_end
+        search_start = destination_end + 1
+
+    if not replacements:
+        return body, legacy_sources, repaired_external_images
+    replacements.append(body[copy_start:])
+    return "".join(replacements), legacy_sources, repaired_external_images
+
+
+def sanitize_body(text: str) -> tuple[str, int, set[str], int]:
     without_marker = MARKDOWN_MARKER_PATTERN.sub("", text)
     body, replacements = SITE_HOST_PATTERN.subn("/", without_marker)
-    return body, replacements
+    body, legacy_relative_images, repaired_external_images = replace_legacy_relative_images(body)
+    return body, replacements, legacy_relative_images, repaired_external_images
 
 
 def clean_generated_output(output_root: Path) -> None:
@@ -403,7 +474,9 @@ def main() -> int:
 
     canonical_urls: dict[int, str] = {}
     referenced_assets: set[str] = set()
+    legacy_relative_images: set[str] = set()
     absolute_rewrite_count = 0
+    repaired_external_images = 0
     generated_posts = 0
     generated_pages = 0
 
@@ -414,8 +487,10 @@ def main() -> int:
         canonical_url = f"/archives/{cid}/" if is_post else f"/{slug}.html"
         canonical_urls[cid] = canonical_url
 
-        body, replacements = sanitize_body(as_text(row["text"]))
+        body, replacements, relative_images, repaired_images = sanitize_body(as_text(row["text"]))
         absolute_rewrite_count += replacements
+        legacy_relative_images.update(relative_images)
+        repaired_external_images += repaired_images
         referenced_assets.update(extract_asset_paths(body))
         terms = relationships[cid]
         layout = ""
@@ -578,6 +653,8 @@ def main() -> int:
             "referenced_by_public_content": len(referenced_assets),
             "missing_attachment_files": missing_attachment_files,
             "unresolved_references": unresolved_asset_references,
+            "legacy_relative_image_references": sorted(legacy_relative_images),
+            "malformed_external_image_repairs": repaired_external_images,
         },
         "comments": {
             "exported": len(comment_export),

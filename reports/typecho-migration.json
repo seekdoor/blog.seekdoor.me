@@ -1,7 +1,7 @@
 {
   "source_database": "blog_20260726_084413.db",
   "source_files": "blog_data_20260726_084413",
-  "generated_at": "2026-07-26T20:05:04.750656+08:00",
+  "generated_at": "2026-07-27T01:44:59.761287+08:00",
   "content": {
     "posts": 715,
     "pages": 6,
@@ -48,7 +48,7 @@
   "assets": {
     "eligible_attachments": 174,
     "copied": 174,
-    "referenced_by_public_content": 180,
+    "referenced_by_public_content": 181,
     "missing_attachment_files": [],
     "unresolved_references": [
       "/usr/uploads/2018/06/3031467160.jpg",
@@ -57,8 +57,19 @@
       "/usr/uploads/2018/12/2372488291.png",
       "/usr/uploads/2020/02/3046541082.png",
       "/usr/uploads/2022/07/1245303289.png",
-      "/usr/uploads/2022/07/366941637.png"
-    ]
+      "/usr/uploads/2022/07/366941637.png",
+      "/usr/uploads/migration/legacy-media-unavailable.jpg"
+    ],
+    "legacy_relative_image_references": [
+      "./web.png",
+      "20130227_%5B%E5%8A%A8%E6%BC%AB%E5%8D%95%E6%9B%B2%5D%20%E3%82%B5%E3%83%81(CV%E6%97%A9%E8%A6%8B%E6%B2%99%E7%B9%94)%20%E3%82%BD%E3%83%BC%E3%83%89%E3%82%A2%E3%83%BC%E3%83%88%E3%83%BB%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%202-Memory%20Heart%20Message.assets/72f082025aafa40f97eeee7cab64034f78f01962.jpg",
+      "20130309_Markdown%20%E5%B7%A5%E5%85%B7.assets/skitched-20120219-223731.jpg",
+      "20150314_linux%E4%B8%8B%E5%8D%87%E7%BA%A7Python%E8%87%B32.x%E7%9A%84%E6%9C%80%E6%96%B0%E7%89%88.assets/005R8Loggw1eq56boh0xkj309e012749.jpg",
+      "20160719_%E5%A6%82%E4%BD%95%E6%8C%91%E9%80%89%E9%80%82%E5%90%88%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.assets/30694b06-f575-11e4-8353-36df2dcb3b3d.png",
+      "20160719_%E5%A6%82%E4%BD%95%E6%8C%91%E9%80%89%E9%80%82%E5%90%88%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.assets/4436b878-f573-11e4-89bd-62c80de95837.jpg",
+      "20160719_%E5%A6%82%E4%BD%95%E6%8C%91%E9%80%89%E9%80%82%E5%90%88%E7%9A%84%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.assets/e7d234f4-f572-11e4-98d3-8108eaf4b546.jpg"
+    ],
+    "malformed_external_image_repairs": 1
   },
   "comments": {
     "exported": 56,
