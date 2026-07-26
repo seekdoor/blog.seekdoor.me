@@ -1,0 +1,139 @@
+baseURL = "https://blog.seekdoor.me/"
+title = "袅残烟的冥想盆"
+locale = "zh-CN"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+timeZone = "Asia/Shanghai"
+enableRobotsTXT = true
+enableGitInfo = false
+summaryLength = 120
+mainSections = ["posts"]
+
+[pagination]
+  pagerSize = 10
+
+[permalinks]
+  posts = "/archives/:slug/"
+
+[taxonomies]
+  category = "category"
+  tag = "tag"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+  notAlternative = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[module]
+  [[module.imports]]
+    path = "github.com/hugo-fixit/FixIt"
+
+[params]
+  description = "喜欢的话就坚持吧"
+  defaultTheme = "auto"
+  dateFormat = "2006-01-02"
+  [params.author]
+    name = "袅残烟"
+    link = "https://blog.seekdoor.me/"
+  since = 2017
+  fingerprint = ""
+
+  [params.search]
+    enable = true
+    type = "fuse"
+    contentLength = 4000
+    placeholder = "搜索文章"
+    maxResultLength = 12
+    snippetLength = 80
+    highlightTag = "em"
+    absoluteURL = false
+
+  [params.header]
+    desktopMode = "fixed"
+    mobileMode = "auto"
+
+  [params.footer]
+    enable = true
+    custom = ""
+    copyright = true
+    author = true
+    since = 2017
+    icp = ""
+    license = ""
+
+  [params.page]
+    hiddenFromHomePage = false
+    hiddenFromSearch = false
+    hiddenFromRSS = false
+
+    [params.page.toc]
+      enable = true
+      keepStatic = false
+      auto = true
+
+    [params.page.comment]
+      enable = true
+
+      [params.page.comment.waline]
+        enable = true
+        serverURL = "https://comment.blog.seekdoor.me"
+        lang = "zh-CN"
+        login = "enable"
+        pageSize = 10
+        reaction = false
+        meta = ["nick", "mail", "link"]
+        requiredMeta = ["nick", "mail"]
+        wordLimit = [0, 5000]
+        imageUploader = false
+        highlighter = true
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "首页"
+    url = "/"
+    weight = 10
+  [[menu.main]]
+    identifier = "blog"
+    name = "文章"
+    url = "/blog/"
+    weight = 20
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives.html"
+    weight = 30
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/category/"
+    weight = 40
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tag/"
+    weight = 50
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about.html"
+    weight = 60

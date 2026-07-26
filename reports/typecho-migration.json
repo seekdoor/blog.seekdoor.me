@@ -1,0 +1,72 @@
+{
+  "source_database": "blog_20260726_084413.db",
+  "source_files": "blog_data_20260726_084413",
+  "generated_at": "2026-07-26T20:05:04.750656+08:00",
+  "content": {
+    "posts": 715,
+    "pages": 6,
+    "reopened_whisper_page": true,
+    "legacy_date_archives": 521,
+    "urls": 721,
+    "excluded": [
+      {
+        "type": "attachment",
+        "status": "publish",
+        "count": 176
+      },
+      {
+        "type": "page",
+        "status": "hidden",
+        "count": 1
+      },
+      {
+        "type": "post",
+        "status": "hidden",
+        "count": 6
+      },
+      {
+        "type": "post",
+        "status": "private",
+        "count": 2
+      },
+      {
+        "type": "post_draft",
+        "status": "publish",
+        "count": 4
+      },
+      {
+        "type": "revision",
+        "status": "publish",
+        "count": 7
+      }
+    ]
+  },
+  "taxonomy": {
+    "categories": 16,
+    "tags": 94
+  },
+  "assets": {
+    "eligible_attachments": 174,
+    "copied": 174,
+    "referenced_by_public_content": 180,
+    "missing_attachment_files": [],
+    "unresolved_references": [
+      "/usr/uploads/2018/06/3031467160.jpg",
+      "/usr/uploads/2018/11/1263342851.jpg",
+      "/usr/uploads/2018/11/2638443997.jpg",
+      "/usr/uploads/2018/12/2372488291.png",
+      "/usr/uploads/2020/02/3046541082.png",
+      "/usr/uploads/2022/07/1245303289.png",
+      "/usr/uploads/2022/07/366941637.png"
+    ]
+  },
+  "comments": {
+    "exported": 56,
+    "replies": 13,
+    "excluded_comment_ids": []
+  },
+  "links": {
+    "absolute_internal_rewrites": 213,
+    "attachment_redirects": 174
+  }
+}

@@ -1,0 +1,20 @@
+{{- $destination := .Destination -}}
+{{- $lowerDestination := lower $destination -}}
+{{- $legacyProtocol := or
+  (hasPrefix $lowerDestination "ed2k:")
+  (hasPrefix $lowerDestination "magnet:")
+  (hasPrefix $lowerDestination "thunder:")
+-}}
+
+{{- if $legacyProtocol -}}
+  <a href="{{ $destination | safeURL }}"
+    {{- with .Title }} title="{{ . }}"{{- end -}}
+    rel="external nofollow noopener noreferrer"
+  >{{ .Text | safeHTML }}</a>
+{{- else -}}
+  {{- with dict "Path" $destination | partial "function/resource.html" -}}
+    {{- $destination = .RelPermalink -}}
+  {{- end -}}
+  {{- $options := dict "Destination" $destination "Title" .Title "Content" .Text "ExternalIcon" .Page.Site.Params.externalIcon -}}
+  {{- partial "plugin/link.html" $options -}}
+{{- end -}}

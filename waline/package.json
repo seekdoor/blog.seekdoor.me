@@ -1,0 +1,15 @@
+{
+  "name": "blog-seekdoor-waline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Waline service for blog.seekdoor.me",
+  "engines": {
+    "node": "^20.19.0 || ^22.12.0 || ^24.0.0"
+  },
+  "dependencies": {
+    "@waline/vercel": "1.41.3"
+  },
+  "devDependencies": {
+    "mongodb": "6.21.0"
+  }
+}

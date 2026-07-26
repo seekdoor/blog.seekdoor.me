@@ -1,0 +1,27 @@
+# Private Typecho source backups. Generated public content is committed instead.
+/blog_*.db
+/blog_data_*/
+
+# Hugo build output and module caches.
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Node and Vercel local state.
+/node_modules/
+/waline/node_modules/
+/waline/.vercel/
+
+# Secrets and PII exports.
+.env
+.env.*
+!.env.example
+/waline/.env
+/waline/.env.*
+!/waline/.env.example
+/reports/waline-comments.private.json
+
+
+# Local verification artifacts.
+/reports/screenshots/
+/scripts/__pycache__/

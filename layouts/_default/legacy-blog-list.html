@@ -1,0 +1,21 @@
+{{- define "title" -}}
+  {{- .Title -}}
+  {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $pages := where .Site.RegularPages "Section" "posts" -}}
+  <div class="page archive">
+    <div class="header">
+      <h1 class="single-title animate__animated animate__pulse animate__faster">
+        {{- dict "Class" "fa-solid fa-feather me-1" | partial "plugin/icon.html" -}}
+        {{- .Title }} <sup>{{ $pages.Len }}</sup>
+      </h1>
+    </div>
+    {{- $paginator := .Paginate $pages -}}
+    {{- range $paginator.Pages -}}
+      {{- .Render "summary" -}}
+    {{- end -}}
+    {{- partial "paginator.html" . -}}
+  </div>
+{{- end -}}

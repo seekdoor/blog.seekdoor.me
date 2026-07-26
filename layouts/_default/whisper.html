@@ -1,0 +1,16 @@
+{{- define "title" -}}
+  {{- .Title -}}
+  {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  <article class="page single special whisper">
+    <div class="header">
+      <h1 class="single-title animate__animated animate__pulse animate__faster">{{ .Title }}</h1>
+    </div>
+    {{- if .Content -}}
+      <div class="content" id="content">{{ .Content }}</div>
+    {{- end -}}
+    {{- partial "single/comment.html" . -}}
+  </article>
+{{- end -}}

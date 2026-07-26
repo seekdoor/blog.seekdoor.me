@@ -1,0 +1,36 @@
+{{- define "title" -}}
+  {{- .Title -}}
+  {{- if .Site.Params.withSiteTitle }} {{ .Site.Params.titleDelimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $matches := slice -}}
+  {{- $year := printf "%v" .Params.legacy_year -}}
+  {{- $month := printf "%02v" .Params.legacy_month -}}
+  {{- $day := printf "%02v" .Params.legacy_day -}}
+  {{- range where .Site.RegularPages "Section" "posts" -}}
+    {{- $matchesYear := eq (.Date.Format "2006") $year -}}
+    {{- $matchesMonth := or (not $.Params.legacy_month) (eq (.Date.Format "01") $month) -}}
+    {{- $matchesDay := or (not $.Params.legacy_day) (eq (.Date.Format "02") $day) -}}
+    {{- if and $matchesYear $matchesMonth $matchesDay -}}
+      {{- $matches = $matches | append . -}}
+    {{- end -}}
+  {{- end -}}
+  <div class="page archive">
+    <div class="header">
+      <h1 class="single-title animate__animated animate__pulse animate__faster">
+        {{- dict "Class" "fa-regular fa-calendar me-1" | partial "plugin/icon.html" -}}
+        {{- .Title }} <sup>{{ $matches.Len }}</sup>
+      </h1>
+    </div>
+
+    {{- range $matches -}}
+      <article class="archive-item">
+        <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .LinkTitle }}</a>
+        <span class="archive-item-date" title="{{ .Date.Format "2006-01-02 15:04:05" }}">
+          {{- .Date | dateFormat "01-02" -}}
+        </span>
+      </article>
+    {{- end -}}
+  </div>
+{{- end -}}

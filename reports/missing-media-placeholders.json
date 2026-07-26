@@ -1,0 +1,13 @@
+{
+  "reason": "Source assets were missing from both local backup and live Typecho host.",
+  "generated": [
+    "/usr/uploads/2018/06/3031467160.jpg",
+    "/usr/uploads/2018/11/1263342851.jpg",
+    "/usr/uploads/2018/11/2638443997.jpg",
+    "/usr/uploads/2018/12/2372488291.png",
+    "/usr/uploads/2020/02/3046541082.png",
+    "/usr/uploads/2022/07/1245303289.png",
+    "/usr/uploads/2022/07/366941637.png"
+  ],
+  "skipped_existing": []
+}
